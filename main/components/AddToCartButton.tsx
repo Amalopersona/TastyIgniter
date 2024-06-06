@@ -1,19 +1,26 @@
 'use client';
+
 import React, { useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const AddToCartButton = React.memo(({ item, cartItems, addToCart, removeFromCart }) => {
-  const quantity = cartItems[item.name] || 0;
+const AddToCartButton = React.memo(() => {
+  const [quantity, setQuantity] = useState(0);
 
-  const handleAddClick = useCallback(() => addToCart(item.name), [addToCart, item.name]);
-  const handleRemoveClick = useCallback(() => removeFromCart(item.name), [removeFromCart, item.name]);
+  const handleAddClick = useCallback(() => setQuantity(quantity + 1), [quantity]);
+  const handleRemoveClick = useCallback(() => {
+    if (quantity > 0) {
+      setQuantity(quantity - 1);
+    } else {
+      setQuantity(0);
+    }
+  }, [quantity]);
 
   return (
     <motion.div
-      className="relative w-40 h-12 bg-blue-500 rounded-full flex items-center justify-center overflow-hidden cursor-pointer"
+      className="relative w-36 h-10 bg-blue-500 rounded-lg flex items-center justify-center overflow-hidden cursor-pointer"
       onClick={quantity === 0 ? handleAddClick : null}
       initial={false}
-      animate={{ width: 160 }}
+      animate={{ width: 144 }}
       transition={{ duration: 0.2 }}
     >
       {quantity === 0 ? (
@@ -35,7 +42,7 @@ const AddToCartButton = React.memo(({ item, cartItems, addToCart, removeFromCart
           transition={{ duration: 0.2 }}
         >
           <motion.button
-            className="w-8 h-8 text-white font-bold bg-transparent"
+            className="w-7 h-7 text-white font-bold bg-transparent"
             onClick={(e) => {
               e.stopPropagation();
               handleRemoveClick();
@@ -59,7 +66,7 @@ const AddToCartButton = React.memo(({ item, cartItems, addToCart, removeFromCart
             {quantity}
           </motion.span>
           <motion.button
-            className="w-8 h-8 text-white font-bold bg-transparent"
+            className="w-7 h-7 text-white font-bold bg-transparent"
             onClick={(e) => {
               e.stopPropagation();
               handleAddClick();
