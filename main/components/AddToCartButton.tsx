@@ -20,7 +20,7 @@ const AddToCartButton = React.memo(({ itemName, initialQuantity, addToCart, remo
 
   return (
     <motion.div
-      className="relative w-full h-10 bg-blue-500 rounded-lg flex items-center justify-center overflow-hidden cursor-pointer"
+      className="relative w-full h-10 bg-green-500 bore rounded-lg flex items-center justify-center overflow-hidden cursor-pointer"
       onClick={quantity === 0 ? handleAddClick : null}
       initial={false}
       animate={{ width: '100%' }}
